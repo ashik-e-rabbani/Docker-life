@@ -1,0 +1,30 @@
+What is images:
+Image : Source codes, dependecies, libraries , assets etc.
+Container: An instance of a Image. If we run a image 5 times , 5 containers will be created.
+
+How to create a container of an Image : 
+Suppose we need to create a container from an image called "Nginx"
+Container will be created automatically if locally found otherwise it will look for this in docker hub.
+
+run: docker container run --publish 80:80 nginx
+
+Here the first port 80 indicates the port of the host machine and the 80 after colon indicates the port of the docker.
+
+To run image in background
+run: docker container run --publish 80:80 --detach nginx
+
+To check running containers:
+run: docker container ls
+
+Stop containers:
+run: docker container stop CONTAINER_ID 
+
+Check Containers running history:
+run: docker container ls -a
+
+To run an image with a specified name
+run: docker container run --publish 80:80 --detach --name our_ngvai nginx
+
+Remove container
+run: docker container rm stopped_container_id
+run: docker container rm -f any_container_id
