@@ -1,0 +1,98 @@
+What is images:
+Image : Source codes, dependecies, libraries , assets etc.
+Container: An instance of a Image. If we run a image 5 times , 5 containers will be created.
+
+How to create a container of an Image : 
+Suppose we need to create a container from an image called "Nginx"
+Container will be created automatically if locally found otherwise it will look for this in docker hub.
+
+run: docker container run --publish 80:80 nginx
+
+Here the first port 80 indicates the port of the host machine and the 80 after colon indicates the port of the docker.
+
+To run image in background
+run: docker container run --publish 80:80 --detach nginx
+
+To check running containers:
+run: docker container ls
+
+Stop containers:
+run: docker container stop CONTAINER_ID 
+
+Check Containers running history:
+run: docker container ls -a
+
+To run an image with a specified name
+run: docker container run --publish 80:80 --detach --name our_ngvai nginx
+
+Remove container
+run: docker container rm stopped_container_id
+run: docker container rm -f any_container_id
+
+
+
+
+
+
+
+-----------Build Your own image in Docker ------------
+Checkpoints: 
+1. Docker is installed and working in your machine.
+2. You have a project which is going to be dockerized
+
+Assuming we have a django project name "sqaportal" running inside a virtual enviroment name "venv"
+
+Project stucture
+------------------
+
+sqaportal
+	> venv
+	> sqaportal
+	> manage.py
+	> requiremnts.txt
+	
+Note: If your project doesn't have any requiremnts.txt file build it with below command.
+run: pip freeze > requirements. txt
+
+
+Step 1: Create a dockerfile in the root directory of the project
+
+Project stucture after adding docker file
+------------------
+
+sqaportal
+	> venv
+	> sqaportal
+	> Dockerfile *
+	> manage.py
+	> requiremnts.txt
+
+Step 2: Add necessery commands in the "Dockerfile"
+
+	FROM python:3.9 [Python version used to build image]
+
+	WORKDIR /app [Changing working directory to app. Docker user app directory by default]
+
+	COPY requirements.txt requirements.txt [copy from django project directory to Docker's app directory]
+
+	RUN pip3 install -r requirements.txt [Install all necessery files]
+
+	COPY . . [copy from django project directory to Docker's app directory]
+
+
+	CMD [ "python", "manage.py", "runserver", "0.0.0.0:8000"] [now run this command to run server. this will be executed by docker itself]
+	
+
+Step 4: Now we need to build an Image with the written docker configuration
+
+run: docker build --tag sqaportal .
+you may replace your preffered image name with "sqaportal"
+
+
+Step 5: Now publish and run the image
+run: docker run --publish 8000:8000 sqaportal
+
+
+------------------Howday Your has build and run successfully-----------
+
+
