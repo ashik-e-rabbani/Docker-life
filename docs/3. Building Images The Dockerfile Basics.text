@@ -69,7 +69,7 @@ sqaportal
 
 Step 2: Add necessery commands in the "Dockerfile"
 
-	FROM python:3.9 [Python version used to build image]
+	FROM python:3.9 [Python version used to build image, It is base image which will be downloaded from docker hub]
 
 	WORKDIR /app [Changing working directory to app. Docker user app directory by default]
 

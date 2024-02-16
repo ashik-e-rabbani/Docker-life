@@ -1,0 +1,18 @@
+Why docker-compose?
+Using Dockerfile we can configure one service but using docker compose we can configure multiple service.
+Example: DockerFile can contain only django app, if we want to add Redis, Celery RMQ etc we need to include those services using docker-compose
+
+Steps:
+1. Install docker-compose if not installed.
+Check you have installed it ; run:docker-compose --version
+
+2. Create a docker-compose.yml file under the parent directory of your project.
+
+3. Addd below configs to docker-compose.yml
+    version: "3.8" [version of docker compose; preferred to use latest stable]
+    services: [It holds the services that we want to run, say redis, django server itself, postgres db]
+        app: [Name of our application]
+            build:  .    [Using this annotation we are telling which configs are going to be used during building our app. The dot refers to the content of parent project folder items]
+            volumes:
+            - .:/app  [Referring dot will copy all current directory contents to docker's app folder which is mentioned at Dockerfile.]
+
